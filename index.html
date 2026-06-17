@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="ko">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>슬은생의 경제적 자유 시뮬레이터 ver1.5</title>
+  <meta name="description"
+    content="나의 자산, 연 수익률, 소비, 은퇴 나이를 기반으로 백세 시대까지 자산의 흐름을 시뮬레이션하고 경제적 자유 달성 가능 여부를 한눈에 진단하세요." />
+
+  <link rel="stylesheet" href="/src/style.css" />
+</head>
+
+<body>
+  <div class="wrap">
+    <header>
+      <h1>슬은생의 경제적 자유 시뮬레이터</h1>
+      <p class="subtitle">
+        노란색 입력 줄에 값을 변경하면, 하이퍼포뮬라 엔진이 실시간으로 은퇴 시뮬레이션을 계산합니다.<br />
+        자세한 시뮬레이션 활용법은
+        <strong>
+          <a href="https://youtu.be/3kspHRWZmCE" target="_blank" rel="noopener noreferrer">미키피디아 분석 영상</a>
+        </strong>을 시청하세요.
+      </p>
+    </header>
+
+    <div class="dashboard-grid">
+      <!-- Left Panel: Inputs -->
+      <aside class="panel">
+        <h2>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round" style="color: var(--accent-gold);">
+            <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon>
+          </svg>
+          변수 조정
+        </h2>
+        <div id="inputs"></div>
+        <div class="hint">
+          <div>• 퍼센트(%) 항목은 <strong>5</strong> 또는 <strong>5%</strong> 형태로 입력이 가능합니다.</div>
+          <div>• 값을 비워둘 경우 <strong>0</strong>으로 계산됩니다.</div>
+        </div>
+      </aside>
+
+      <!-- Right Panel: Dashboard Visualization -->
+      <main style="display: flex; flex-direction: column; gap: 24px;">
+
+        <!-- Summary Cards Row -->
+        <section class="summary-container">
+          <div class="summary-card" id="card-status">
+            <div class="title">자유 달성 여부</div>
+            <div class="value" id="metric-status">-</div>
+          </div>
+          <div class="summary-card warning" id="card-retire">
+            <div class="title">은퇴 시점 자산</div>
+            <div class="value" id="metric-retire">-</div>
+          </div>
+          <div class="summary-card success" id="card-peak">
+            <div class="title">역대 최대 자산</div>
+            <div class="value" id="metric-peak">-</div>
+          </div>
+        </section>
+
+        <!-- Chart -->
+        <section class="panel">
+          <h2>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round" style="color: var(--color-asset);">
+              <line x1="18" y1="20" x2="18" y2="10"></line>
+              <line x1="12" y1="20" x2="12" y2="4"></line>
+              <line x1="6" y1="20" x2="6" y2="14"></line>
+            </svg>
+            시뮬레이션 그래프 (자산 · 수입 · 지출 추이)
+          </h2>
+          <div class="chart-container">
+            <canvas id="simulatorChart"></canvas>
+          </div>
+        </section>
+
+        <!-- Table Results -->
+        <section class="panel">
+          <h2>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round" style="color: var(--color-income);">
+              <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+              <line x1="9" y1="3" x2="9" y2="21"></line>
+              <line x1="15" y1="3" x2="15" y2="21"></line>
+              <line x1="3" y1="9" x2="21" y2="9"></line>
+              <line x1="3" y1="15" x2="21" y2="15"></line>
+            </svg>
+            연도별 세부 시뮬레이션 결과 (나이 100세까지)
+          </h2>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th class="num" style="width: 15%">나이</th>
+                  <th class="num" style="width: 30%">내 자산 (만원)</th>
+                  <th class="num" style="width: 27%">연 소비 (만원)</th>
+                  <th class="num" style="width: 28%">연 수입 (만원)</th>
+                </tr>
+              </thead>
+              <tbody id="tbody"></tbody>
+            </table>
+          </div>
+          <div class="hint" style="margin-top: 14px;">
+            <div>• <strong>내 자산</strong>이 0보다 작아지면 해당 연도의 표 칸은 빈칸으로 출력됩니다.</div>
+          </div>
+        </section>
+      </main>
+    </div>
+  </div>
+
+  <script type="module" src="/src/main.js"></script>
+</body>
+
+</html>
